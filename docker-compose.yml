@@ -10,16 +10,12 @@ services:
           - "8070:80"
         volumes:
             - ./:/www/html
-        links:
-            - db
-
-    db:
-        image: mysql:8
-        environment:
-            MYSQL_ROOT_PASSWORD: "root"
-        ports:
-            - "3307:3306"
-        volumes:
-            - dbdata:/var/lib/mysql
+        networks:
+            - network-mysql
+networks:
+    network-mysql:
+        external: true
+        name: mysql_network-mysql
 volumes:
-    dbdata:
+    db_volume:
+        external: true
