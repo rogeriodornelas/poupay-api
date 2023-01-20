@@ -1,21 +1,26 @@
-version: "3.8"
+version: '3'
+
 services:
-    app:
+    web:
         build:
-            context: ./dockerConfig
+            context: ./docker
             dockerfile: Dockerfile
-        restart: "always"
-        container_name: poupay-api
+        container_name: poupay-backend
         ports:
-          - "8070:80"
+            - "8074:80"
         volumes:
-            - ./:/www/html
-        networks:
-            - network-mysql
-networks:
-    network-mysql:
-        external: true
-        name: mysql_network-mysql
+            - ./:/var/www/html
+    db:
+        image: mysql:8
+        container_name: poupay-database
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=poupay
+            - MYSQL_PASSWORD=root
+        ports:
+        - "3307:3306"
+        volumes:
+            - db:/var/lib/mysql
+
 volumes:
-    db_volume:
-        external: true
+    db:
