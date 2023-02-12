@@ -15,11 +15,12 @@ RUN apt-get install -y nodejs
 RUN docker-php-ext-install pdo_mysql
 
 # configuração do apache
-COPY default.conf /etc/apache2/sites-available/
+COPY vhost.conf /etc/apache2/sites-available/
 RUN a2enmod rewrite
 
 # configuração do PHP
 COPY custom.ini /usr/local/etc/php/
+ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
 EXPOSE 80
 CMD ["apache2-foreground"]
