@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use \App\Models\Group;
 
 return new class extends Migration
 {
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('path');
+            $table->foreignIdFor(Group::class)->constrained();
             $table->timestamps();
         });
     }
