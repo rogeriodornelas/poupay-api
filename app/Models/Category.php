@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    # Relationships
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

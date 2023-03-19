@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {
@@ -36,5 +38,10 @@ class LoginRequest extends FormRequest
             'email.email' => 'E-mail deve ser um e-mail válido',
             'password.required' => 'Senha é obrigatório'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(["message" => "Falha ao tentar fazer login", "errors" => $validator->errors()], 422));
     }
 }

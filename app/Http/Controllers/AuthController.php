@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,16 +43,7 @@ class AuthController extends Controller
     {
         try {
             $providerUser = Socialite::driver($provider)->stateless()->user();
-            $user = (new User())->updateOrCreate(
-                ['provider_id' => $providerUser->getId()],
-                [
-                    'name' => $providerUser->getName(),
-                    'email' => $providerUser->getEmail(),
-                    'provider_name' => $provider,
-                    'provider_id' => $providerUser->getId(),
-                ]
-            );
-            $token = $this->service->getToken($user->id);
+            $token = $this->service->loginFromProvider($provider, $providerUser);
             return response()->json($token);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 401);

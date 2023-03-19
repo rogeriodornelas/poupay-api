@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Recurrence extends Model
 {
     use HasFactory;
+
+    # Relationships
+
+    public function invoices()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
 }
