@@ -11,6 +11,6 @@ class GroupScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('group_id', session()->get('group_id'));
+        $builder->where('group_id', request()->payload['group_id']);
     }
 }

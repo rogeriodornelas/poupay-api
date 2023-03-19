@@ -11,9 +11,8 @@ trait Tenantable
     protected static function bootTenantable()
     {
         static::addGlobalScope(new GroupScope());
-
         static::creating(function ($model) {
-            $model->tenant_id = session()->get('group_id');
+            $model->group_id = request()->payload['group_id'];
         });
     }
 
