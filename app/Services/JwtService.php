@@ -18,7 +18,7 @@ class JwtService
     public function createToken(Object $payload, $expiration = 1296000)
     {
         $payload->exp = time() + $expiration;
-        $tokenJWT = JWT::encode($payload, $this->key, 'HS256');
+        $tokenJWT = JWT::encode((array)$payload, $this->key, 'HS256');
         $tokenURL = JWT::urlsafeB64Encode($tokenJWT);
         return [
             'access_token' => $tokenURL
