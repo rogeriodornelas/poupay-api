@@ -17,7 +17,10 @@ class ApiAccessControl
                 throw new Exception('Acesso não autorizado!', 401);
             }
 
-            $jwtService->validateToken($request->bearerToken());
+            $payload = $jwtService->validateToken($request->bearerToken());
+            $request->merge([
+                "payload" => (array)$payload
+            ]);
 
             return $next($request);
         } catch (Exception $e) {
