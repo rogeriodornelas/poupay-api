@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Payment\CreateRequest;
-use App\Services\PaymentService;
+use App\Services\InvoiceService;
 use Illuminate\Http\Request;
 use Exception;
 
-class PaymentController extends Controller
+class InvoiceController extends Controller
 {
-    public function __construct(private PaymentService $service)
+    public function __construct(private InvoiceService $service)
     {
     }
 

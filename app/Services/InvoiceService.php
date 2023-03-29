@@ -7,7 +7,7 @@ use App\Helpers\Util;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
 
-class PaymentService
+class InvoiceService
 {
     public function __construct(private Invoice $model)
     {
